@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="柯善康" />
+  <title>Windows10 添加小鹤双拼</title>
+  <link rel="canonical" href="https://www.keshankang.org/archives/windows10-add-xiaohe-shuangpin.html" />
+</head>
+
+<body>
+  <main>
+    <article>
+      <h1>Windows10 添加小鹤双拼</h1>
+      <address><a href="https://www.keshankang.org/">柯善康</a></address>
+      <p>
+        Windows10 内置的微软拼音是一款出色的输入法。微软拼音虽然没有内置小鹤双拼的方案，但是提供了自定义双拼方案的功能，允许用户自行添加双拼方案。用户只需要将音节和按键配对即可。
+      </p>
+      <p>
+        不过，如果有多台设备的话，这样逐一手动配置双拼方案就显得过于笨拙了。更简单的方法是修改注册表，直接导入已经配置好的双拼方案。
+      </p>
+      <p>
+        自定义的双拼方案保存在 <code>\HKEY_CURRENT_USER\Software\Microsoft\InputMethod\Settings\CHS</code> 项中名称形如
+        <code>UserDefinedDoublePinyinScheme0</code> （如果有多个方案，则名称的数值递增，如0、1、2…）的字符串值里。
+      </p>
+      <p>
+        经过手动配置，我的 <code>UserDefinedDoublePinyinScheme0</code> 值为
+        <code>小鹤双拼*2*^*iuvdjhcwfg xmlnpbksqszxkrltvyovt</code> 。
+      </p>
+      <p>
+        如果以后再需给微软拼音添加小鹤双拼方案，只需打开注册表编辑器，在
+        <code>\HKEY_CURRENT_USER\Software\Microsoft\InputMethod\Settings\CHS</code>
+        项中新建一个字符串值，将其命名为 <code>UserDefinedDoublePinyinScheme0</code> （其中0也可能是1、2、3…），把它的值设置为
+        <code>小鹤双拼*2*^*iuvdjhcwfg xmlnpbksqszxkrltvyovt</code> ，就可以直接完成双拼方案的添加，而无需逐一手动配置。
+      </p>
+      <p>
+        当然，也可以直接下载注册表文件，然后导入注册表。
+      </p>
+      <p>
+        <a href="https://files.keshankang.org/2022/03/xiaohe_20220310154130_crc32-af552543.zip">下载注册表文件压缩包（ZIP，412B）</a>
+      </p>
+      <p style="text-align: end;">
+        <time datetime="2020-04-16">2020 年 04 月 16 日</time>
+      </p>
+    </article>
+  </main>
+  <hr />
+  <footer>
+    <address>
+      您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。
+      <br />
+      <a href="../gpg.html">GPG Key</a> Fingerprint:
+      <span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.
+    </address>
+    <p>
+      Copyright &copy; 2020, 2022 Shankang Ke.
+    </p>
+    <p>
+      This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative
+        Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+    </p>
+  </footer>
+</body>
+
+</html>

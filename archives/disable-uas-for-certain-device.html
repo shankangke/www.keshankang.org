@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="柯善康" />
+  <title>为移动硬盘禁用 UAS</title>
+  <link rel="canonical" href="https://www.keshankang.org/archives/disable-uas-for-certain-device.html" />
+</head>
+
+<body>
+  <main>
+    <article>
+      <h1>为移动硬盘禁用 UAS</h1>
+      <address>
+        <a href="https://www.keshankang.org/">柯善康</a>
+      </address>
+      <p>
+        使用 UAS 可能导致 smartmontools 等工具无法正常工作。可以通过编辑 GRUB 配置给内核传递参数，为某一特定设备禁用 UAS。
+      </p>
+      <p>
+        例如，编辑 <code>/etc/grub.d/10_linux</code> 文件，在文件首部添加
+        <code>GRUB_CMDLINE_LINUX="usb_storage.quirks=<var>idVendor</var>:<var>idProduct</var>:u"</code> 这一行配置，将
+        <var>idVendor</var> 和 <var>idProduct</var> 替换为设备的实际值。
+      </p>
+      <p>
+        <var>idVendor</var> 和 <var>idProduct</var> 可以通过 <code>dmesg</code> 获得。
+      </p>
+      <p>比如下面的 <code>dmesg</code> 信息：</p>
+      <pre>usb 2-1: new SuperSpeed USB device number 8 using xhci_hcd
+usb 2-1: New USB device found, idVendor=0bc2, idProduct=231a
+usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[...]
+scsi host4: uas
+scsi 4:0:0:0: Direct-Access     VENDOR-NAME               0204 PQ: 0 ANSI: 6
+sd 4:0:0:0: Attached scsi generic sg2 type 0
+sd 4:0:0:0: [sdc] 1953525168 512-byte logical blocks: (1.00 TB/932 GiB)
+sd 4:0:0:0: [sdc] 4096-byte physical blocks
+sd 4:0:0:0: [sdc] Write Protect is off
+sd 4:0:0:0: [sdc] Mode Sense: 53 00 00 08
+sd 4:0:0:0: [sdc] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+ sdc: sdc1 sdc2
+sd 4:0:0:0: [sdc] Attached SCSI disk</pre>
+      <p>从中我们可以得到 <var>idVendor</var> 为 <code>0bc2</code>，<var>idProduct</var> 为 <code>231a</code>。</p>
+      <p>编辑完 GRUB 配置文件，运行 <code>update-grub</code> 使配置生效。重启后，即可为 <var>idVendor</var>:<var>idProduct</var> 设备禁用 UAS。</p>
+      <p style="text-align: end;">
+        <time datetime="2022-07-25">2022 年 07 月 25 日</time>
+      </p>
+    </article>
+  </main>
+  <hr />
+  <footer>
+    <address>
+      您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。
+      <br />
+      <a href="../gpg.html">GPG Key</a> Fingerprint:
+      <span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.
+    </address>
+    <p>
+      Copyright &copy; 2022 Shankang Ke.
+    </p>
+    <p>
+      This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative
+        Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+    </p>
+  </footer>
+</body>
+
+</html>

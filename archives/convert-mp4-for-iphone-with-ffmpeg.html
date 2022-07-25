@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="柯善康" />
+  <title>解决 MP4 视频无法在 iPhone 手机播放的问题</title>
+  <link rel="canonical" href="https://www.keshankang.org/archives/convert-mp4-for-iphone-with-ffmpeg.html" />
+</head>
+
+<body>
+  <main>
+    <article>
+      <h1>解决 MP4 视频无法在 iPhone 手机播放的问题</h1>
+      <address><a href="https://www.keshankang.org/">柯善康</a></address>
+      <p>
+        本文适用于解决因视频编码导致无法播放的问题。
+      </p>
+      <h2>前言</h2>
+      <p>使用 iPhone、iPad 等苹果设备时会发现有的 MP4 格式视频可以正常播放，而有的却无法播放，在部分 Android
+        设备上也存在类似问题。大部分情况下，这类无法播放的问题都是因为缺少对应视频编码的解码器造成的，要解决这类问题，一种方法是下载能够解码该视频的播放器，另一种方法是对视频转码。本文介绍后者，即如何对视频进行转码使其能被大多数设备播放。
+      </p>
+      <p>
+        如果去搜索格式转换、视频转码等内容，会找到各类视频处理工具，其中大部分都需要付费或者含有许多广告。实际上，很多视频问题使用 FFmpeg 就能解决问题，这款免费、开源且无广告的工具也能通过转码解决 MP4
+        无法在苹果手机播放的问题。
+      </p>
+      <h2>下载 FFmpeg</h2>
+      <p>
+        如果你的电脑上还没有 FFmpeg 程序，你可以<a href="https://ffmpeg.org/">前往 FFmpeg 官网（外部链接）</a>下载最新版本的 FFmpeg 程序。
+      </p>
+      <p>
+        对于 Windows 用户，我在这里提供了一份副本，可以直接<a
+          href="https://files.keshankang.org/2022/03/ffmpeg-n5.0-latest-win64-gpl-5.0_20220312140755_crc32-6774b312.zip">下载适用于
+          64 位操作系统的 FFmpeg n5.0 压缩包（ZIP，103.8 MiB）</a>，解压后即可使用命令行调用程序。
+      </p>
+      <p>
+        对于 Linux 用户，大多数 Linux 发行版的软件仓库中都包含了 FFmpeg 程序，可以直接使用包管理器安装。例如 Debian 和 Ubuntu 用户可直接使用
+        <code>apt-get install ffmpeg</code> 命令安装 FFmpeg 程序。
+      </p>
+      <h2>执行命令进行转码</h2>
+      <p>
+        使用 FFmpeg 对视频转码，让视频获得最好的兼容性，只用把下面命令中的 <code>&lt;input&gt;</code> 替换为需要转换的视频文件名，然后执行即可：
+      </p>
+      <p>
+        <code>ffmpeg -i &lt;input&gt; -c:v libx264 -crf 23 -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -movflags faststart ksk-example.mp4</code>
+      </p>
+      <p>
+        得到的 <code>ksk-example.mp4</code> 文件就是转码后生成的能够被大多数设备（包括使用 iOS 的 iPhone 和 iPad 设备）直接正常播放的 MP4 视频。
+      </p>
+      <h2>解释说明</h2>
+      <p>
+        现在问题已经解决。接下来我将进行一些解释说明，如果不感兴趣，可以直接略过。
+      </p>
+      <p>
+        H.264/AAC 的 MP4 是 HTML5 下兼容性最好的组合。对于没有 H.264 解码器的浏览器，则应该提供 VP9/Vorbis 的 WebM
+        视频。有这两种组合，基本上就可以兼容目前的所有主流浏览器。对于本文来说， H.264 编码的视频能够在大多数移动设备上正常播放，所以我们采用 H.264 编码。
+      </p>
+      <p>
+        用 <code>-profile:v baseline -level 3.0</code> 参数可以兼容一些无法处理 H.264 中 CPU 密集型特性的老设备，如果没有这个需求，可以去掉这一参数。
+      </p>
+      <p>
+        <code>-crf 23</code> 参数影响视频的质量，数值越低质量越好，一般设置在18到28这个区间内即可。如果需要指定视频码率，可以使用类似 <code>b:v 1000k</code>
+        这样的参数，这么做是因为一些性能不太强劲的设备可能会无法处理过高码率。
+      </p>
+      <p>
+        <code>-movflags faststart</code>
+        参数在流媒体播放的时候起作用，这个命令把视频容器的元信息移到文件头部。默认情况下（没有这个参数时），视频元信息在文件尾部，造成的结果是只有整个文件都加载完成后才能开始播放；有了这个参数，视频不必全部加载就可以播放。
+      </p>
+      <p style="text-align: end;">
+        <time datetime="2022-03-12">2022 年 03 月 12 日</time>
+      </p>
+    </article>
+  </main>
+  <hr />
+  <footer>
+    <address>
+      您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。
+      <br />
+      <a href="../gpg.html">GPG Key</a> Fingerprint:
+      <span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.
+    </address>
+    <p>
+      Copyright &copy; 2022 Shankang Ke.
+    </p>
+    <p>
+      This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative
+        Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+    </p>
+  </footer>
+</body>
+
+</html>

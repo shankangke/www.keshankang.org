@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="柯善康" />
+  <title>网站使用 CDN 之后获取访客原 IP 的方法</title>
+  <link rel="canonical" href="https://www.keshankang.org/archives/original-ip-behind-cdn.html" />
+</head>
+
+<body>
+  <main>
+    <article>
+      <h1>网站使用 CDN 之后获取访客原 IP 的方法</h1>
+      <address><a href="https://www.keshankang.org/">柯善康</a></address>
+      <p>
+        网络上大多数教程给出的方法都是通过修改程序代码，直接取 X-Forwarded-For 等请求标头的值替换原来 REMOTE_ADDR 变量的值作为原 IP，这种做法有很大的安全隐患，我认为不值得提倡。
+      </p>
+      <h2>安全隐患</h2>
+      <p>
+        根据 RFC 3875 文件，REMOTE_ADDR 变量的值必须为发送请求到服务器的客户端的网络地址。在实践中 REMOTE_ADDR
+        变量的值往往<strong>由服务器直接</strong>设置为发送请求的客户端网络地址，而不是由客户端提供，因此其真实性有保证。
+      </p>
+      <p>
+        与 REMOTE_ADDR 变量不同，X-Forwarded-For 请求标头的值不是由服务器直接决定，而可以<strong>由客户端自行</strong>设置，实践中一般由代理服务器在转发请求时设置。因为
+        X-Forwarded-For
+        请求标头的值可能被客户端伪造，所以不应该轻易相信其真实性。
+      </p>
+      <p>
+        由于 REMOTE_ADDR 变量的值和 X-Forwarded-For 请求标头的值具有不同的可信度，使用低可信度 X-Forwarded-For 请求标头的值去替换高可信度 REMOTE_ADDR
+        变量的值便会产生不可忽视的安全隐患。比如，攻击者可以通过伪造 X-Forwarded-For 请求标头来绕过基于 IP 的频率限制、访问控制。更进一步，攻击者还可以构造具有危害性
+        X-Forwarded-For 请求标头来对服务器进行多种攻击，例如注入恶意代码进行 XSS 攻击就是一种可能的行为。
+      </p>
+      <h2>正确做法</h2>
+      <p>
+        在使用 X-Forwarded-For 请求标头的值之前应该确保其内容可信。因为 X-Forwarded-For 请求标头一般由代理服务器添加，所以至少应该先确认请求来自可信的代理服务器才可使用
+        X-Forwarded-For 标头的值。
+      </p>
+      <p>
+        对于使用 CDN 的网站，如果服务器是 nginx，那么在 ngx_http_realip_module 模块的帮助下这一过程将会十分简单。只需编辑相应的 nginx 配置文件，在其中的
+        http、server 或 location 段，使用 set_real_ip_from 指定可信代理服务器地址（即 CDN 节点的地址），然后使用 real_ip_header 指明一个请求标头（即
+        X-Forwarded-For 标头），保存并重载 nginx 使配置生效。这样 nginx 收到请求后会检查请求的 REMOTE_ADDR 是否与 set_real_ip_from
+        相符，如果相符，nginx 会用 real_ip_header 对应标头的值替换 REMOTE_ADDR 原有的值，后端程序只需要正常使用 REMOTE_ADDR 的值即可。这种做法一般不需要改变后端程序。
+      </p>
+      <h2>参考资料</h2>
+      <ul>
+        <li>
+          <a href="https://www.rfc-editor.org/rfc/rfc3875#section-4.1.8">RFC 3875: Section
+            4.1.8
+            REMOTE_ADDR（外部链接）</a>
+        </li>
+        <li>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For">MDN Web Docs:
+            X-Forwarded-For（外部链接）</a>
+        </li>
+        <li>
+          <a href="https://nginx.org/en/docs/http/ngx_http_realip_module.html">Documentation
+            of nginx: Module
+            ngx_http_realip_module（外部链接）</a>
+        </li>
+      </ul>
+      <p style="text-align: end;">
+        <time datetime="2022-06-04">2022 年 06 月 04 日</time>
+      </p>
+    </article>
+  </main>
+  <hr />
+  <footer>
+    <address>
+      您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。
+      <br />
+      <a href="../gpg.html">GPG Key</a> Fingerprint:
+      <span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.
+    </address>
+    <p>
+      Copyright &copy; 2022 Shankang Ke.
+    </p>
+    <p>
+      This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative
+        Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+    </p>
+  </footer>
+</body>
+
+</html>

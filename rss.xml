@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+   <channel>
+      <title>keshankang.org</title>
+      <link>https://www.keshankang.org/</link>
+      <description>The RSS feed for keshankang.org</description>
+      <language>zh</language>
+      <atom:link href="https://www.keshankang.org/rss.xml" rel="self" type="application/rss+xml" />
+      <item>
+         <title>为移动硬盘禁用 UAS</title>
+         <link>https://www.keshankang.org/archives/disable-uas-for-certain-device.html</link>
+         <guid>https://www.keshankang.org/archives/disable-uas-for-certain-device.html</guid>
+         <description><![CDATA[
+  <main>
+    <article>
+      <h1>为移动硬盘禁用 UAS</h1>
+      <address>
+        <a href="https://www.keshankang.org/">柯善康</a>
+      </address>
+      <p>
+        使用 UAS 可能导致 smartmontools 等工具无法正常工作。可以通过编辑 GRUB 配置给内核传递参数，为某一特定设备禁用 UAS。
+      </p>
+      <p>
+        例如，编辑 <code>/etc/grub.d/10_linux</code> 文件，在文件首部添加
+        <code>GRUB_CMDLINE_LINUX="usb_storage.quirks=<var>idVendor</var>:<var>idProduct</var>:u"</code> 这一行配置，将
+        <var>idVendor</var> 和 <var>idProduct</var> 替换为设备的实际值。
+      </p>
+      <p>
+        <var>idVendor</var> 和 <var>idProduct</var> 可以通过 <code>dmesg</code> 获得。
+      </p>
+      <p>比如下面的 <code>dmesg</code> 信息：</p>
+      <pre>usb 2-1: new SuperSpeed USB device number 8 using xhci_hcd
+usb 2-1: New USB device found, idVendor=0bc2, idProduct=231a
+usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[...]
+scsi host4: uas
+scsi 4:0:0:0: Direct-Access     VENDOR-NAME               0204 PQ: 0 ANSI: 6
+sd 4:0:0:0: Attached scsi generic sg2 type 0
+sd 4:0:0:0: [sdc] 1953525168 512-byte logical blocks: (1.00 TB/932 GiB)
+sd 4:0:0:0: [sdc] 4096-byte physical blocks
+sd 4:0:0:0: [sdc] Write Protect is off
+sd 4:0:0:0: [sdc] Mode Sense: 53 00 00 08
+sd 4:0:0:0: [sdc] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+ sdc: sdc1 sdc2
+sd 4:0:0:0: [sdc] Attached SCSI disk</pre>
+      <p>从中我们可以得到 <var>idVendor</var> 为 <code>0bc2</code>，<var>idProduct</var> 为 <code>231a</code>。</p>
+      <p>编辑完 GRUB 配置文件，运行 <code>update-grub</code> 使配置生效。重启后，即可为 <var>idVendor</var>:<var>idProduct</var> 设备禁用 UAS。</p>
+      <p style="text-align: end;">
+        <time datetime="2022-07-25">2022 年 07 月 25 日</time>
+      </p>
+    </article>
+  </main>
+  <hr />
+  <footer>
+    <address>
+      您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。
+      <br />
+      <a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:
+      <span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.
+    </address>
+    <p>
+      Copyright &copy; 2022 Shankang Ke.
+    </p>
+    <p>
+      This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative
+        Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+    </p>
+  </footer>
+         ]]></description>
+      </item>
+      <item>
+         <title>深夜出门撸串？不好意思，给不了你这种安全感</title>
+         <link>https://www.keshankang.org/archives/feeling-safe-at-night-no.html</link>
+         <guid>https://www.keshankang.org/archives/feeling-safe-at-night-no.html</guid>
+         <description><![CDATA[<main><article><h1>深夜出门撸串？不好意思，给不了你这种安全感</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><blockquote cite="https://m.weibo.cn/status/4125115450451265"><p>【深夜出门撸串？不好意思，美国给不了你这种安全感】凌晨两点在路边撸串，半夜独自外出……这些在中国习以为常的生活方式，在美国却可能成为一道道催命符。在国外深夜出门，可不像在中国这么简单。</p><p style="text-align: end;">&mdash;<cite>共青团中央微博</cite></p></blockquote><p>最近唐山烧烤店打人事件让不少人想起了共青团中央 2017年发的一条微博。或许有人会说这是“恶意翻书”，但人们想起来这条微博更可能是因为一些要素引起了联想：“凌晨两点”、“撸串”、“催命符”……</p><p>有人觉得这是名副其实的“打脸”行为。但也许一些人错误解读了这条微博，或多或少产生了幻想。因为从文字本身来看，这条微博的内容只不过：</p><p><ul><li>凌晨两点在路边撸串，半夜独自外出……这些行为在中国是习以为常的生活方式；</li><li>凌晨两点在路边撸串，半夜独自外出……这些行为在美国可能成为催命符；</li><li>深夜出门，在国外不像在中国这么简单；</li><li>美国给不了你深夜出门撸串的安全感。</li></ul></p><p>瞧，这条微博的内容只有这些，再没有其他的东西了。别的意思都是读者自己的想法，而不是微博本身的内容。</p><p>下面两点认识有助于避免进入误区：</p><ul><li>习以为常的行为不一定是安全的行为。</li><li>生活中的很多事情不能当作对立事件来看待。</li></ul><p>习以为常是指某种事情经常去做，或某种现象经常看到，也就觉得很平常了。比如某人乘坐机动车时经常不系安全带，也一直没遇到什么事故，他/她对不系安全带习以为常，但我们并不能由此推出这种行为是安全的。</p><p>对立事件是指其中必有一个发生的两个互斥事件，互斥事件是指不可能同时发生的事件。比如从一个只有黑球和白球的袋子里任取一个球，“取出的球是黑球”和“取出的球是白球”为一组对立事件；如果取出的不是黑球，那么就一定是白球，反之亦然。而从世界上所有人中随机选择两个人A 和 B，“A 出生于越南”和“B 出生于印度”既非对立事件又非互斥事件；无论 A 出生在哪里，我们都无法由此得知 B 的出生地，这两者并不相关。</p><p>无论对于“凌晨两点在路边撸串，半夜独自外出”多么习以为常，都不能说明这种行为本身是否安全。就算“美国给不了你深夜出门撸串的安全感”，也不会影响“美国之外的某个地方能否给你深夜出门撸串的安全感”。</p><p style="text-align: end;"><time datetime="2022-06-11">2022 年 06 月 11 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+      <item>
+         <title>网站使用 CDN 之后获取访客原 IP 的方法</title>
+         <link>https://www.keshankang.org/archives/original-ip-behind-cdn.html</link>
+         <guid>https://www.keshankang.org/archives/original-ip-behind-cdn.html</guid>
+         <description><![CDATA[<main><article><h1>网站使用 CDN 之后获取访客原 IP 的方法</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><p>网络上大多数教程给出的方法都是通过修改程序代码，直接取 X-Forwarded-For 等请求标头的值替换原来 REMOTE_ADDR 变量的值作为原 IP，这种做法有很大的安全隐患，我认为不值得提倡。</p><h2>安全隐患</h2><p>根据 RFC 3875 文件，REMOTE_ADDR 变量的值必须为发送请求到服务器的客户端的网络地址。在实践中 REMOTE_ADDR变量的值往往<strong>由服务器直接</strong>设置为发送请求的客户端网络地址，而不是由客户端提供，因此其真实性有保证。</p><p>与 REMOTE_ADDR 变量不同，X-Forwarded-For 请求标头的值不是由服务器直接决定，而可以<strong>由客户端自行</strong>设置，实践中一般由代理服务器在转发请求时设置。因为X-Forwarded-For请求标头的值可能被客户端伪造，所以不应该轻易相信其真实性。</p><p>由于 REMOTE_ADDR 变量的值和 X-Forwarded-For 请求标头的值具有不同的可信度，使用低可信度 X-Forwarded-For 请求标头的值去替换高可信度 REMOTE_ADDR变量的值便会产生不可忽视的安全隐患。比如，攻击者可以通过伪造 X-Forwarded-For 请求标头来绕过基于 IP 的频率限制、访问控制。更进一步，攻击者还可以构造具有危害性X-Forwarded-For 请求标头来对服务器进行多种攻击，例如注入恶意代码进行 XSS 攻击就是一种可能的行为。</p><h2>正确做法</h2><p>在使用 X-Forwarded-For 请求标头的值之前应该确保其内容可信。因为 X-Forwarded-For 请求标头一般由代理服务器添加，所以至少应该先确认请求来自可信的代理服务器才可使用X-Forwarded-For 标头的值。</p><p>对于使用 CDN 的网站，如果服务器是 nginx，那么在 ngx_http_realip_module 模块的帮助下这一过程将会十分简单。只需编辑相应的 nginx 配置文件，在其中的http、server 或 location 段，使用 set_real_ip_from 指定可信代理服务器地址（即 CDN 节点的地址），然后使用 real_ip_header 指明一个请求标头（即X-Forwarded-For 标头），保存并重载 nginx 使配置生效。这样 nginx 收到请求后会检查请求的 REMOTE_ADDR 是否与 set_real_ip_from相符，如果相符，nginx 会用 real_ip_header 对应标头的值替换 REMOTE_ADDR 原有的值，后端程序只需要正常使用 REMOTE_ADDR 的值即可。这种做法一般不需要改变后端程序。</p><h2>参考资料</h2><ul><li><a href="https://www.rfc-editor.org/rfc/rfc3875#section-4.1.8">RFC 3875: Section4.1.8REMOTE_ADDR（外部链接）</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For">MDN Web Docs:X-Forwarded-For（外部链接）</a></li><li><a href="https://nginx.org/en/docs/http/ngx_http_realip_module.html">Documentationof nginx: Modulengx_http_realip_module（外部链接）</a></li></ul><p style="text-align: end;"><time datetime="2022-06-04">2022 年 06 月 04 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+      <item>
+         <title>看到亚马逊停止 Kindle 电子书店在中国运营的消息有感</title>
+         <link>https://www.keshankang.org/archives/amazon-kindle-cn.html</link>
+         <guid>https://www.keshankang.org/archives/amazon-kindle-cn.html</guid>
+         <description><![CDATA[<main><article><h1>看到亚马逊停止 Kindle 电子书店在中国运营的消息有感</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><p>对于 Kindle 中国区用户：从 2023 年 6 月 30 日起将不能购买新的电子书，但仍可下载此前已购买的电子书；从 2024 年 6 月 30 日起将不能从 Kindle下载任何电子书，只可阅读设备上已经下载的电子书。</p><p>亚马逊的这次调整算不上突然。早在半年前，国内主要电商平台的 Kindle 就已经开始缺货，那时是 2022 年 1 月左右。虽然这次亚马逊的通知中提到每位用户可以在 2022 年 10 月 31日之前退回至多 3 台于 2022 年 1 月 1 日及以后从国内授权经销渠道购买的至今没有质量问题及人为损坏的 Kindle 设备，但实际上能满足亚马逊退货条件的用户并不多。因为国内授权经销渠道在 2022年 1 月之后基本都是缺货状态，所以大部分满足时间要求的用户都是从非国内授权经销渠道购买到 Kindle 设备的。</p><p>之前我就说过<a href="https://www.keshankang.org/archives/why-not-ebooks.html#reliability">纸质书比 Kindle 电子书更可靠</a>，不过那时并没有太多实例。这次 Kindle电子书店在中国停止运营为我的“反电子书”观点提供了新的证据支持。不要简单地将这次事件视作一家国际公司的区域性运营调整。问题的根源不在这家公司，而在当前的电子书商业运作模式。只不过亚马逊在这个行业中一直扮演着“老大”的角色，所以问题最先从它身上暴露出来。我相信如果当前这种电子书商业运作模式不改变，那么支撑我“反电子书”观点的证据还会越来越多。</p><p style="text-align: end;"><time datetime="2022-06-02">2022 年 06 月 02 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+      <item>
+         <title>自愿行为不一定取决于自己</title>
+         <link>https://www.keshankang.org/archives/am-i-in-control.html</link>
+         <guid>https://www.keshankang.org/archives/am-i-in-control.html</guid>
+         <description><![CDATA[<main><article><h1>自愿行为不一定取决于自己</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><p>从前我以为我的人生掌握在自己手里，因为我的自愿行为取决于自己。现在我对这一点不那么确信了。自愿行为可能更多出自一定的欲望和价值观，而欲望和价值观似乎并非取决于自己。</p><p>要想知道欲望或价值观能否被自己的意志改变，可以通过一些思想实验来完成。比如，试着说服自己伤害小动物是正确的、善良的行为。或者，试着让自己不再渴望原先渴望得到的东西，无论它是钱、权力、成就、名声、健康、快乐、亲情还是别的什么，试着用意志让自己不再渴望它。</p><p>尝试了这样的思想实验，我发觉自己的欲望和价值观好像并不取决于自己，进而产生怀疑：那些我原以为是自愿的行为真的取决于自己吗？我的人生真的掌握在自己手里吗？我的答案不再那么明确。</p><p style="text-align: end;"><time datetime="2022-05-28">2022 年 05 月 28 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+      <item>
+         <title>现在依旧偏爱纸质书的原因</title>
+         <link>https://www.keshankang.org/archives/why-not-ebooks.html</link>
+         <guid>https://www.keshankang.org/archives/why-not-ebooks.html</guid>
+         <description><![CDATA[<main><article><h1>现在依旧偏爱纸质书的原因</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><p><em>在这篇文章里，如果没有特别说明，电子书均指亚马逊类的电子书。</em></p><p>抛开情怀、习惯等原因，在这个时代依旧偏爱纸质书的一个重要原因是纸质书比电子书更尊重人们的权利。</p><p>购买纸质书的行为可以匿名完成，而购买电子书则不行。在书店选好要买的书之后，只用支付现金就能把书带走。在电子书商城买书，除了需要付钱，还需要表明自己的身份（需要登录）。此外，虽然这本电子书已经被“买到手”，但是在阅读时读者仍然需要先表明自己的身份。</p><p>购买完一本纸质书，就拥有了这本纸质书；购买完一本电子书，却并不拥有这本电子书。纸质书可以送给别人、借给别人，还可以转手卖掉，电子书却不行。这是因为购买纸质书之后，购买者便对这本纸质书享有所有权，而电子书的购买者却不具有电子书的所有权。这一问题是现在电子书一系列问题的根源。</p><p id="reliability">纸质书比电子书更可靠。这里的可靠不是指内容的可信度，而是指内容能被正常读取的可能性。使用加密格式的电子书需要通过专有软件进行读取，一旦软件公司倒闭、专有软件无法正常运行，电子书可能也就无法再被阅读。阅读纸质书就没有这种顾虑，因为哪怕出版社倒闭了，书也还在自己手里，还是能读。说到这里不得不提电子书公司曾经的行为：在2009 年，亚马逊远程删除了许多用户设备中的乔治·奥威尔小说《1984》。如果当初这些用户购买的是纸质书，那么亚马逊断然不会闯进用户家中撕毁用户手中的纸质书。</p><p>实际上，不是电子书不尊重人们的权利，比如古腾堡计划的电子书做得就很好。电子书原来是没有这些问题的，但当电子书公司介入之后，问题便产生了。</p><p>在电子书公司转变这些令人不满的做法之前，对纸质书的偏爱将一直保持下去。</p><p style="text-align: end;"><time datetime="2022-05-22">2022 年 05 月 22 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+      <item>
+         <title>解决 MP4 视频无法在 iPhone 手机播放的问题</title>
+         <link>https://www.keshankang.org/archives/convert-mp4-for-iphone-with-ffmpeg.html</link>
+         <guid>https://www.keshankang.org/archives/convert-mp4-for-iphone-with-ffmpeg.html</guid>
+         <description><![CDATA[<main><article><h1>解决 MP4 视频无法在 iPhone 手机播放的问题</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><p>本文适用于解决因视频编码导致无法播放的问题。</p><h2>前言</h2><p>使用 iPhone、iPad 等苹果设备时会发现有的 MP4 格式视频可以正常播放，而有的却无法播放，在部分 Android设备上也存在类似问题。大部分情况下，这类无法播放的问题都是因为缺少对应视频编码的解码器造成的，要解决这类问题，一种方法是下载能够解码该视频的播放器，另一种方法是对视频转码。本文介绍后者，即如何对视频进行转码使其能被大多数设备播放。</p><p>如果去搜索格式转换、视频转码等内容，会找到各类视频处理工具，其中大部分都需要付费或者含有许多广告。实际上，很多视频问题使用 FFmpeg 就能解决问题，这款免费、开源且无广告的工具也能通过转码解决 MP4无法在苹果手机播放的问题。</p><h2>下载 FFmpeg</h2><p>如果你的电脑上还没有 FFmpeg 程序，你可以<a href="https://ffmpeg.org/">前往 FFmpeg 官网（外部链接）</a>下载最新版本的 FFmpeg 程序。</p><p>对于 Windows 用户，我在这里提供了一份副本，可以直接<ahref="https://files.keshankang.org/2022/03/ffmpeg-n5.0-latest-win64-gpl-5.0_20220312140755_crc32-6774b312.zip">下载适用于64 位操作系统的 FFmpeg n5.0 压缩包（ZIP，103.8 MiB）</a>，解压后即可使用命令行调用程序。</p><p>对于 Linux 用户，大多数 Linux 发行版的软件仓库中都包含了 FFmpeg 程序，可以直接使用包管理器安装。例如 Debian 和 Ubuntu 用户可直接使用<code>apt-get install ffmpeg</code> 命令安装 FFmpeg 程序。</p><h2>执行命令进行转码</h2><p>使用 FFmpeg 对视频转码，让视频获得最好的兼容性，只用把下面命令中的 <code>&lt;input&gt;</code> 替换为需要转换的视频文件名，然后执行即可：</p><p><code>ffmpeg -i &lt;input&gt; -c:v libx264 -crf 23 -profile:v baseline -level 3.0 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -movflags faststart ksk-example.mp4</code></p><p>得到的 <code>ksk-example.mp4</code> 文件就是转码后生成的能够被大多数设备（包括使用 iOS 的 iPhone 和 iPad 设备）直接正常播放的 MP4 视频。</p><h2>解释说明</h2><p>现在问题已经解决。接下来我将进行一些解释说明，如果不感兴趣，可以直接略过。</p><p>H.264/AAC 的 MP4 是 HTML5 下兼容性最好的组合。对于没有 H.264 解码器的浏览器，则应该提供 VP9/Vorbis 的 WebM视频。有这两种组合，基本上就可以兼容目前的所有主流浏览器。对于本文来说， H.264 编码的视频能够在大多数移动设备上正常播放，所以我们采用 H.264 编码。</p><p>用 <code>-profile:v baseline -level 3.0</code> 参数可以兼容一些无法处理 H.264 中 CPU 密集型特性的老设备，如果没有这个需求，可以去掉这一参数。</p><p><code>-crf 23</code> 参数影响视频的质量，数值越低质量越好，一般设置在18到28这个区间内即可。如果需要指定视频码率，可以使用类似 <code>b:v 1000k</code>这样的参数，这么做是因为一些性能不太强劲的设备可能会无法处理过高码率。</p><p><code>-movflags faststart</code>参数在流媒体播放的时候起作用，这个命令把视频容器的元信息移到文件头部。默认情况下（没有这个参数时），视频元信息在文件尾部，造成的结果是只有整个文件都加载完成后才能开始播放；有了这个参数，视频不必全部加载就可以播放。</p><p style="text-align: end;"><time datetime="2022-03-12">2022 年 03 月 12 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+      <item>
+         <title>Windows10 添加小鹤双拼</title>
+         <link>https://www.keshankang.org/archives/windows10-add-xiaohe-shuangpin.html</link>
+         <guid>https://www.keshankang.org/archives/windows10-add-xiaohe-shuangpin.html</guid>
+         <description><![CDATA[<main><article><h1>Windows10 添加小鹤双拼</h1><address><a href="https://www.keshankang.org/">柯善康</a></address><p>Windows10 内置的微软拼音是一款出色的输入法。微软拼音虽然没有内置小鹤双拼的方案，但是提供了自定义双拼方案的功能，允许用户自行添加双拼方案。用户只需要将音节和按键配对即可。</p><p>不过，如果有多台设备的话，这样逐一手动配置双拼方案就显得过于笨拙了。更简单的方法是修改注册表，直接导入已经配置好的双拼方案。</p><p>自定义的双拼方案保存在 <code>\HKEY_CURRENT_USER\Software\Microsoft\InputMethod\Settings\CHS</code> 项中名称形如<code>UserDefinedDoublePinyinScheme0</code> （如果有多个方案，则名称的数值递增，如0、1、2…）的字符串值里。</p><p>经过手动配置，我的 <code>UserDefinedDoublePinyinScheme0</code> 值为<code>小鹤双拼*2*^*iuvdjhcwfg xmlnpbksqszxkrltvyovt</code> 。</p><p>如果以后再需给微软拼音添加小鹤双拼方案，只需打开注册表编辑器，在<code>\HKEY_CURRENT_USER\Software\Microsoft\InputMethod\Settings\CHS</code>项中新建一个字符串值，将其命名为 <code>UserDefinedDoublePinyinScheme0</code> （其中0也可能是1、2、3…），把它的值设置为<code>小鹤双拼*2*^*iuvdjhcwfg xmlnpbksqszxkrltvyovt</code> ，就可以直接完成双拼方案的添加，而无需逐一手动配置。</p><p>当然，也可以直接下载注册表文件，然后导入注册表。</p><p><a href="https://files.keshankang.org/2022/03/xiaohe_20220310154130_crc32-af552543.zip">下载注册表文件压缩包（ZIP，412B）</a></p><p style="text-align: end;"><time datetime="2020-04-16">2020 年 04 月 16 日</time></p></article></main><hr /><footer><address>您可以<a href="mailto:shankangke@gmail.com">发送电子邮件</a>到 shankangke@gmail.com 与我联系。<br /><a href="https://www.keshankang.org/gpg.html">GPG Key</a> Fingerprint:<span>EAE2 ACC0 C3C0 0B68 9385 EF2F D3EC 3711 A334 283C</span>.</address><p>Copyright &copy; 2020, 2022 Shankang Ke.</p><p>This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CreativeCommons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p></footer>]]></description>
+      </item>
+   </channel>
+</rss>
